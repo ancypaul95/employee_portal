@@ -1,0 +1,2 @@
+module EmployeePagesHelper
+end
