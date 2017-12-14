@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       # Log the user in and redirect to the user's show page.
       log_in employee
       #remember employee
-      params[:session][:remember_me] == '1' ? remember(employee) : forget(employee)     
+      #params[:session][:remember_me] == '1' ? remember(employee) : forget(employee)     
       redirect_to home_path
     else
       # Create an error message.

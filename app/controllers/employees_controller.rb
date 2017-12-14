@@ -11,10 +11,15 @@ class EmployeesController < ApplicationController
       # Handle a successful save.
       log_in @employee
       flash[:success] = "Welcome to the Employee Portal!"
-      redirect_to @employee      
+      #redirect_to login_path 
+      redirect_to @employee
     else
       render 'new'
     end
+  end
+  
+  def edit
+    @employee = Employee.find(params[:id])
   end
 
   private

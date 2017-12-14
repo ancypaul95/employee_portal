@@ -26,7 +26,7 @@ class Employee < ApplicationRecord
     def remember
         self.remember_token = Employee.new_token
         update_attribute(:remember_digest, Employee.digest(remember_token))
-    end
+    end 
 
     # Returns true if the given token matches the digest.
     def authenticated?(remember_token)

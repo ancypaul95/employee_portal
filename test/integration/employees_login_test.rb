@@ -22,7 +22,7 @@ class EmployeesLoginTest < ActionDispatch::IntegrationTest
     assert is_logged_in?
     assert_redirected_to @employee
     follow_redirect!
-    assert_template 'employees/show'
+    assert_template 'employee_pages/home'
     assert_select "a[href=?]", login_path, count: 0
     assert_select "a[href=?]", logout_path
     assert_select "a[href=?]", employee_path(@employee)
@@ -37,17 +37,8 @@ class EmployeesLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", employee_path(@employee), count: 0
   end
 
-  test "login with remembering" do
-    log_in_as(@employee, remember_me: '1')
-    assert_not_empty cookies['remember_token']
-  end
+  ##end
 
-  test "login without remembering" do
-    # Log in to set the cookie.
-    log_in_as(@employee, remember_me: '1')
-    # Log in again and verify that the cookie is deleted.
-    log_in_as(@employee, remember_me: '0')
-    assert_empty cookies['remember_token']
-  end
+  ##end
 
 end
