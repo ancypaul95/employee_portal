@@ -1,30 +1,23 @@
+<% if logged_in? %>
 <% provide(:title, "Employee Details") %>
 <h1>Update Details</h1>
-
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@employee) do |f| %>
-      <%= render 'shared/error_messages' %>
+    <%= form_for(@employee, url: details_path) do |f| %>
       
-      <%= f.label :employeeid %>
-      <%= f.text_field :employeeid, class: 'form-control' %>
-
       <%= f.label :designation %>
       <%= f.text_field :designation, class: 'form-control' %>
 
       <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control' %>
 
-      <%= f.label :joiningdate %>
-      <%= f.text_field :joiningdate, class: 'form-control' %>
+      <%= f.label :dateofjoin ,"Date of Join"%>
+      <%= f.date_field :dateofjoin, class: 'form-control' %>
 
-      <%= f.label :username %>
-      <%= f.text_field :username, class: 'form-control' %>
+      <%= f.label :dateofbirth,"Date of Birth" %>
+      <%= f.date_field :dateofbirth, class: 'form-control' %>
 
-      <%= f.label :dateofbirth %>
-      <%= f.text_field :dateofbirth, class: 'form-control' %>
-
-      <%= f.label :personalemail %>
+      <%= f.label :personalemail,"Peronal Email" %>
       <%= f.email_field :personalemail, class: 'form-control' %>
 
       <%= f.submit "Update", class: "btn btn-primary" %>
@@ -32,3 +25,4 @@
     <% end %>  
   </div>
 </div>
+<% end %>

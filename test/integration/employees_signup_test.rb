@@ -22,7 +22,7 @@ class EmployeesSignupTest < ActionDispatch::IntegrationTest
                                          password_confirmation: "password" } }
     end
     follow_redirect!
-    assert_template 'employees/show'
+    assert_template 'sessions/new'
     assert is_logged_in?
   end
 end

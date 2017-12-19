@@ -9,8 +9,20 @@
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form-control' %>
 
+      <%= f.label :designation %>
+      <%= f.text_field :designation, class: 'form-control' %>
+
       <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :gender %>
+      <%= f.text_field :gender, class: 'form-control' %>
+
+      <%= f.label :dateofjoin, "Date of Join"%>
+      <%= f.date_field :dateofjoin, class: 'form-control' %>
+
+      <%= f.label :address %>
+      <%= f.text_field :address, class: 'form-control' %>
 
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
@@ -18,7 +30,7 @@
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
-      <%= f.submit "Create my account", class: "btn btn-primary" %>
+      <%= f.submit "Add Employee", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>

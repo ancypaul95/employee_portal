@@ -1,1 +1,4 @@
-<%= @employee.name %>, <%= @employee.email %>
+
+<% employee = Employee.find_by(params[:id])%>
+<%= employee.name %>
+<%= employee.email %>
