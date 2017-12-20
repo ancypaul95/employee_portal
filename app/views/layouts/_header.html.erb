@@ -6,10 +6,9 @@
         <% if logged_in? %>
           <li>
             <li><%= link_to "Home",   home_path %></li>
-            <li><%= link_to "Details",   details_path %></li>
+            <li><%= link_to "Details",   edit_employee_path(current_employee) %></li>
             <li><%= link_to "Log Out", logout_path,method: :delete %></li>
-          </li>
-         
+          </li> 
         <% end %>
       </ul>
     </nav>

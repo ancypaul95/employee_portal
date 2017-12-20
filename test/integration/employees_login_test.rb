@@ -22,9 +22,8 @@ class EmployeesLoginTest < ActionDispatch::IntegrationTest
     assert is_logged_in?
     assert_redirected_to home_path
     follow_redirect!
-    assert_template 'employee_pages/home'
+    assert_template 'employees/home'
     assert_select "a[href=?]", logout_path
-    assert_select "a[href=?]", details_path
     delete logout_path
     assert_not is_logged_in?
     assert_redirected_to login_path

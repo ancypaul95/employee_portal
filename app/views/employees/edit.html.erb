@@ -3,7 +3,7 @@
 <h1>Update Details</h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@employee, url: details_path) do |f| %>
+    <%= form_for(@employee) do |f| %>
       
       <%= f.label :designation %>
       <%= f.text_field :designation, class: 'form-control' %>
@@ -17,7 +17,7 @@
       <%= f.label :dateofbirth,"Date of Birth" %>
       <%= f.date_field :dateofbirth, class: 'form-control' %>
 
-      <%= f.label :personalemail,"Peronal Email" %>
+      <%= f.label :personalemail,"Personal Email" %>
       <%= f.email_field :personalemail, class: 'form-control' %>
 
       <%= f.submit "Update", class: "btn btn-primary" %>

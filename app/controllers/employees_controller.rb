@@ -1,6 +1,11 @@
 class EmployeesController < ApplicationController
+
+  def index
+    @employee=Employee.all
+  end
+
   def show
-    @employee = Employee.find_by(params[:id])
+    @employee = Employee.find(params[:id])
   end
   
   def new
@@ -24,15 +29,17 @@ class EmployeesController < ApplicationController
     @employee = current_employee
     #@employee = Employee.find_by(params[:id])
   end
-
+ 
   def update
-    @employee = current_employee
+    @employee = Employee.find(params[:id])
     if @employee.update_attributes(employee_params)
+    # if ((params[:employee][:designation]).blank? ? true : @employee.update_attribute(:designation, params[:employee][:designation]) ) && ((params[:employee][:email]).blank? ? true : @employee.update_attribute(:email, params[:employee][:email])) && ((params[:employee][:dateofjoin]).blank? ? true : @employee.update_attribute(:dateofjoin, params[:employee][:dateofjoin])) && ((params[:employee][:dateofbirth]).blank? ? true : @employee.update_attribute(:dateofbirth, params[:employee][:dateofbirth])) && ((params[:employee][:personalemail]).blank? ? true : @employee.update_attribute(:personalemail, params[:employee][:personalemail])) 
       # Handle a successful update.
-      flash[:success] = "Updated!"
+      flash[:success] = "Profile Updated!"
       redirect_to @employee
     else
-      render 'edit'
+      flash[:error] = "updation failed!"
+      redirect_to edit_employee_path(@employee)
     end
   end
 
@@ -42,7 +49,7 @@ class EmployeesController < ApplicationController
     params.require(:employee).permit(:name, :designation,:email,:gender,:dateofjoin,:dateofbirth,:address,:personalemail,:password,:password_confirmation)
   end
 
-    def employee_params
-      params.require(:employee).permit(:name, :designation,:email,:gender,:dateofjoin,:dateofbirth,:address,:personalemail)
-    end
+  def employee_params
+    params.require(:employee).permit(:name, :designation,:email,:gender,:dateofjoin,:dateofbirth,:address,:personalemail)
+  end
 end

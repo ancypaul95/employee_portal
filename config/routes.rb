@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
 
-  get '/adminlogin',to:'admin#new'
+  get '/adminlogin',to:'adminsession#new'
 
-  post '/adminlogin',to:'admin#index'
+  post '/adminlogin',to:'adminsession#create'
 
-  get '/home',to:'employee_pages#home'
+  delete '/adminlogout',to:'adminsession#destroy'
 
-  get '/details', to: 'employees#edit'
-  patch '/details', to: 'employees#update'
+  get '/adminhome',to:'admin#home'
 
+  get '/index',to:'admin#create'
+
+  get '/home',to:'employees#home'
 
   get  '/signup',  to: 'employees#new'
 
@@ -17,8 +19,6 @@ Rails.application.routes.draw do
   get    '/login',   to: 'sessions#new'
 
   post   '/login',   to: 'sessions#create'
-
-  get 'employees/:id/show',to: 'employees#show'
 
   delete '/logout',  to: 'sessions#destroy'
 

@@ -63,15 +63,7 @@ class EmployeeTest < ActiveSupport::TestCase
     assert_equal mixed_case_email.downcase, @employee.reload.email
   end
 
-  test "password should be present (nonblank)" do
-    @employee.password = @employee.password_confirmation = " " * 6
-    assert_not @employee.valid?
-  end
-
-  test "password should have a minimum length" do
-    @employee.password = @employee.password_confirmation = "a" * 5
-    assert_not @employee.valid?
-  end
+  
 
   test "authenticated? should return false for an employee with nil digest" do
     assert_not @employee.authenticated?('')
