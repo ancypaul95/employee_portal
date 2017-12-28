@@ -159,6 +159,10 @@ input, textarea, select, .uneditable-input {
   margin-bottom: 15px;
   @include box_sizing;
 }
+form #active {
+  width:auto;
+  display: inline;
+}
 
 input {
   height: auto !important;
@@ -181,8 +185,6 @@ input {
 }
 
 .checkbox {
-  margin-top: -10px;
-  margin-bottom: 10px;
   span {
     margin-left: 20px;
     font-weight: normal;

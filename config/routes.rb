@@ -8,13 +8,23 @@ Rails.application.routes.draw do
 
   get '/adminhome',to:'admin#home'
 
-  get '/index',to:'admin#create'
+  get '/adminemployee',to:'admin#index'
+
+  get '/adminedit',to:'admin#edit'
+
+  patch '/adminedit', to: 'admin#update'
+
+  get '/adminproject',to:'admin#projects'
+
+  get  '/addemployee',  to: 'employees#new'
+  
+  post '/addemployee',  to: 'employees#create'
+
+  get '/showemployee',to:'employees#show'
+  
+  post '/showemployee',to:'employees#show'
 
   get '/home',to:'employees#home'
-
-  get  '/signup',  to: 'employees#new'
-
-  post '/signup',  to: 'employees#create'
 
   get    '/login',   to: 'sessions#new'
 

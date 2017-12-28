@@ -4,7 +4,9 @@ class EmployeeTest < ActiveSupport::TestCase
 
   def setup
     @employee = Employee.new(name: "Example User", email: "user@example.com",
-                     password: "foobar", password_confirmation: "foobar")
+                     designation:"tester",phone:"1234567890",gender:"male",
+                     dateofjoin:"12/11/2017",address:"qwerty",active:"true",
+                     username:"username",password: "foobar", password_confirmation: "foobar")
   end
 
   test "should be valid" do

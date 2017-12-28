@@ -1,5 +1,5 @@
-<% provide(:title, 'Employee') %>
+<% provide(:user, 'employee') %>
 <% if logged_in? %>
-<h1>Welcome to Employee Portal</h1>
+<h1>Welcome  <%= current_employee.name %></h1>
 <% end %>
 

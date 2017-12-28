@@ -6,3 +6,4 @@ example:
   name:  Example
   email: example@mail.com
   password_digest: <%= Employee.digest('password') %>
+

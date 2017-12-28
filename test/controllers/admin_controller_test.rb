@@ -7,3 +7,4 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
   end
 
 end
+ 
