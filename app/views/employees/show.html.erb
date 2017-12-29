@@ -1,5 +1,5 @@
 <% provide(:user, 'admin') %>
-<%= gravatar_for @employee %>
+<%= image_tag @employee.image.thumb.url unless @employee.image.blank?%>
 <table class="table table-striped">
 
     <tr>
@@ -36,6 +36,12 @@
         <td>Username</td>
         <td>
             <%= @employee.username%>
+        </td>
+    </tr>
+    <tr>
+        <td>Personal Email</td>
+        <td>
+            <%= @employee.personalemail%>
         </td>
     </tr>
     <tr>

@@ -28,7 +28,7 @@ module SessionsHelper
   def logged_in?
     !current_employee.nil?
   end
-
+ 
   # Forgets a persistent session.
   def forget(employee)
     employee.forget

@@ -1,16 +1,18 @@
 class Employee < ApplicationRecord
-
+    mount_uploader :image, ImageUploader
     attr_accessor :remember_token
     before_save { self.email = email.downcase }
-    validates :name, presence: true, length: { maximum: 50 }
+    validates :name, presence: true, length: { maximum: 50 } 
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
     number_regex = /\A([0-9]+){10}\z/
     validates :email, presence: true, length: { maximum: 255 },
                       format: { with: VALID_EMAIL_REGEX },
                       uniqueness: { case_sensitive: false }
     has_secure_password
+    validates_processing_of :image
+    validate :image_size_validation
     validates :password, presence: true, length: { minimum: 6 },allow_nil: true
-    validates :phone,presence: true, format: { with: number_regex },allow_nil:true,uniqueness:true
+    validates :phone,format: { with: number_regex },uniqueness:true
 
     # Returns the hash digest of the given string.
     def Employee.digest(string)
@@ -39,5 +41,11 @@ class Employee < ApplicationRecord
     # Forgets a user.
     def forget
         update_attribute(:remember_digest, nil)
+    end
+
+    private
+    
+    def image_size_validation
+        errors[:image] << "should be less than 500KB" if image.size > 0.5.megabytes
     end
 end 

@@ -4,15 +4,15 @@ class AdminController < ApplicationController
  
   def index
     #@employee=Employee.all
-    @employee = Employee.paginate(page: params[:page], :per_page => 10)
+    @employee = Employee.order("created_at DESC").paginate(page: params[:page], :per_page => 10)
   end
 
-  def edit  
+  def edit    
     @employee = Employee.find(params[:id])
   end
 
   def update
-    @employee = Employee.find(params[:id])
+    @employee = Employee.find(params[:id]) 
     if @employee.update_attributes(employee_updparams) 
       flash[:success] = "Profile Updated!"
       redirect_to adminemployee_path

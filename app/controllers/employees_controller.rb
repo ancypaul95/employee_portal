@@ -25,10 +25,10 @@ class EmployeesController < ApplicationController
   end
   
   def edit
-    @employee = current_employee
+     @employee = current_employee
     #@employee = Employee.find_by(params[:id])
   end
- 
+  
   def update
     @employee = Employee.find(params[:id])
     if @employee.update_attributes(employee_params)
@@ -40,7 +40,7 @@ class EmployeesController < ApplicationController
       flash.now[:error] = "updation failed!"
       redirect_to edit_employee_path(@employee)
     end
-  end
+  end 
 
   def destroy
     Employee.find(params[:id]).destroy
@@ -55,7 +55,7 @@ class EmployeesController < ApplicationController
   end
 
   def employee_params
-    params.require(:employee).permit(:dateofbirth,:personalemail)
+    params.require(:employee).permit(:dateofbirth,:personalemail,:image)
   end
   
 end

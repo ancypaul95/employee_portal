@@ -5,8 +5,7 @@ class EmployeesEditTest < ActionDispatch::IntegrationTest
     @employee = employees(:example)
   end
 
-  test "unsuccessful edit" do
-    log_in_as(@employee)    
+  test "unsuccessful edit" do    
     get edit_employee_path(@employee)
     assert_template 'employees/edit'
     patch employee_path(@employee), params: { employee: { 
@@ -20,8 +19,7 @@ class EmployeesEditTest < ActionDispatch::IntegrationTest
     assert @employee
   end
 
-  test "successful edit" do
-    log_in_as(@employee)    
+  test "successful edit" do  
     get edit_employee_path(@employee)
     assert_template 'employees/edit'
     email = "foo@bar.com"
@@ -38,7 +36,7 @@ class EmployeesEditTest < ActionDispatch::IntegrationTest
                                               personalemail:personalemail,
                                               username:username } }
     assert_not flash.empty?
-    assert_redirected_to home_path
+    assert_redirected_to edit_employee_path
     @employee.reload 
   end
 end
