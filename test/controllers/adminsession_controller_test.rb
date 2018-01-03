@@ -5,5 +5,4 @@ class AdminsessionControllerTest < ActionDispatch::IntegrationTest
     get adminlogin_path
     assert_response :success
   end
-
 end

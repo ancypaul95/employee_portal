@@ -16,13 +16,13 @@ Rails.application.routes.draw do
 
   get '/adminproject',to:'admin#projects'
 
-  get  '/addemployee',  to: 'employees#new'
+  get  '/addemployee',  to: 'admin#addemployee'
   
-  post '/addemployee',  to: 'employees#create'
+  post '/addemployee',  to: 'admin#create'
 
-  get '/showemployee',to:'employees#show'
+  get '/showemployee',to:'admin#show'
   
-  post '/showemployee',to:'employees#show'
+  post '/showemployee',to:'admin#show'
 
   get '/home',to:'employees#home'
 
@@ -33,6 +33,6 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'employees#new'  
+  root 'sessions#new'  
   resources :employees 
 end
