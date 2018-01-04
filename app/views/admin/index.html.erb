@@ -11,6 +11,8 @@
   </tr>
 
   <% @employee.each do |employee| %>
+  <% if !employee.admin %>
+
   <tr>
     <td><%= link_to employee.name ,showemployee_path(:id=>employee.id) ,method: :post%></td>
     <td><%= employee.email %></td>
@@ -21,7 +23,11 @@
                                    data: { confirm: 'Are you sure?' } %></td>
   </tr>
   <% end %>
+
+  <% end %>
+
 </table>
+
 <br>
 
 <%= link_to 'Add Employee', addemployee_path,class:"btn btn-primary pull-right" %>

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class AdminLoginTest < ActionDispatch::IntegrationTest
   def setup
-    @employee = employees(:example)
+    @admin = employees(:admin)
   end
 
   test "login with invalid information" do
@@ -18,16 +18,16 @@ class AdminLoginTest < ActionDispatch::IntegrationTest
   test "login with valid information followed by logout" do
     get adminlogin_path
     assert_template 'adminsession/new'
-    post adminlogin_path, params: { session: { email:    @employee.email,
+    post adminlogin_path, params: { session: { email:    @admin.email,
                                           password: 'password' } }
-    # assert is_logged_in?
-    assert_template 'admin/home'
+    assert is_logged_in?
+    assert_redirected_to adminhome_path
     follow_redirect!
     assert_template 'admin/home'
     assert_select "a[href=?]", adminemployee_path
     assert_select "a[href=?]", adminproject_path
-    assert_select "a[href=?]", logout_path
-    delete logout_path
+    assert_select "a[href=?]", adminlogout_path
+    delete adminlogout_path
     assert_not is_logged_in?      
   end
 end

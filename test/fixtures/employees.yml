@@ -14,3 +14,34 @@ example:
   dateofjoin: 2017-12-20
   dateofbirth: 1995-12-06
   address: sdgfbdvnkwljes gjgjghvmhg gjmhgmjmhnfnbf, utjtjhg, jhtkujtuuk
+  admin: false
+
+
+admin:
+  name:  Admin
+  email: admin@mail.com
+  password_digest: <%= Employee.digest('password') %>
+  username: admin@mail.com
+  active: true
+  gender: male
+  designation: developer
+  phone: 9876543211
+  dateofjoin: 2017-12-22
+  dateofbirth: 1995-12-06
+  address: sdgfbdvnkwljes gjgjghvmhg gjmhgmjmhnfnbf, utjtjhg, jhtkujtuuk
+  admin: true
+
+<% 10.times do |n| %>
+employee_<%= n %>:
+  name:  <%= "Employee" %>
+  email: <%= "employee-#{n}@example.com" %>
+  password_digest: <%= Employee.digest('password') %>
+  username: <%= "employee-#{n}@example.com" %>
+  active: true
+  gender: male
+  designation: <%= "developer" %>
+  phone: <%= "#{1000000000 + n}" %>
+  dateofjoin: 2017-12-20
+  dateofbirth: 1995-12-06
+  address: sdgfbdvnkwljes gjgjghvmhg gjmhgmjmhnfnbf, utjtjhg, jhtkujtuuk
+<% end %>
