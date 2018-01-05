@@ -2,7 +2,14 @@ require 'test_helper'
 
 class EmployeesSignupTest < ActionDispatch::IntegrationTest
 
+  def setup
+    @admin = employees(:admin)
+  end
+
   test "invalid signup information" do
+    get adminlogin_path
+    post adminlogin_path, params: { session: { email:    @admin.email,
+                                          password: 'password' } }
     get addemployee_path
     assert_no_difference 'Employee.count' do
       post addemployee_path, params: { employee: { name:  "",
@@ -21,6 +28,9 @@ class EmployeesSignupTest < ActionDispatch::IntegrationTest
   end
 
   test "valid signup information" do
+    get adminlogin_path
+    post adminlogin_path, params: { session: { email:    @admin.email,
+                                          password: 'password' } }
     get addemployee_path
     assert_difference 'Employee.count', 1 do
     post addemployee_path, params: { employee: { name:  "Example User",
@@ -37,6 +47,5 @@ class EmployeesSignupTest < ActionDispatch::IntegrationTest
     end
     follow_redirect!
     assert_template 'admin/index'
-    assert is_logged_in?
   end
 end

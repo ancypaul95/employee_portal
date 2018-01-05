@@ -15,6 +15,7 @@ example:
   dateofbirth: 1995-12-06
   address: sdgfbdvnkwljes gjgjghvmhg gjmhgmjmhnfnbf, utjtjhg, jhtkujtuuk
   admin: false
+  personalemail: example@mail.com
 
 
 admin:
@@ -30,6 +31,7 @@ admin:
   dateofbirth: 1995-12-06
   address: sdgfbdvnkwljes gjgjghvmhg gjmhgmjmhnfnbf, utjtjhg, jhtkujtuuk
   admin: true
+  personalemail: admin@mail.com
 
 <% 10.times do |n| %>
 employee_<%= n %>:
@@ -40,8 +42,10 @@ employee_<%= n %>:
   active: true
   gender: male
   designation: <%= "developer" %>
-  phone: <%= "#{1000000000 + n}" %>
+  phone: <%= 1000000000 + n %>
   dateofjoin: 2017-12-20
   dateofbirth: 1995-12-06
   address: sdgfbdvnkwljes gjgjghvmhg gjmhgmjmhnfnbf, utjtjhg, jhtkujtuuk
+  personalemail: <%= "employee-#{n}@example.com" %>
+  admin: false
 <% end %>

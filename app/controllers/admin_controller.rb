@@ -9,6 +9,7 @@ class AdminController < ApplicationController
 
   def index
     #@employee=Employee.all
+    redirect_to root_path unless logged_in? && admin_logged_in?
     @employee = Employee.order("created_at DESC").paginate(page: params[:page], :per_page => 10)
   end
 
@@ -30,7 +31,6 @@ class AdminController < ApplicationController
     @employee = Employee.new(employee_signup_params)
     if @employee.save
       # Handle a successful save.
-      log_in @employee
       flash[:success] = "New employee is added!"
       redirect_to adminemployee_path
     else
