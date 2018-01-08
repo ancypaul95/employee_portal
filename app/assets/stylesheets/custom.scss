@@ -21,6 +21,14 @@ $gray-medium-light: #eaeaea;
   @include box_sizing;
 }
 
+.img1{
+  // position: relative;
+  // left: 50%;
+  // transform: translate(-50%);
+  display: block;
+  max-width:230px;
+  max-height:95px;
+}
 
 /* universal */
 
