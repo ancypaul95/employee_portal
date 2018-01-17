@@ -1,12 +1,28 @@
 class EmployeesController < ApplicationController
 
+  before_action :employee_logged_in, only: [:edit,
+                                            :update,
+                                            :home]
+
   def home
-    redirect_to root_path unless logged_in? && !admin_logged_in?
   end
   
   def edit 
-     redirect_to root_path unless logged_in? && !admin_logged_in?
-     @employee = current_employee
+    @employee = current_employee
+    if params["fb"]
+      config = request.env['omniauth.auth']['credentials']
+      @graph = Koala::Facebook::API.new(config['token'])
+      user = @graph.get_object('me?fields=picture,name,email,birthday')
+      if user['email'] || user['birthday'] 
+        @employee.update_attributes(personalemail: user['email'],
+                                    dateofbirth: date_converter(user['birthday']))
+        redirect_to edit_employee_path(@employee), notice:"successfully updated"
+      else
+        redirect_to edit_employee_path(@employee), notice:"Updation failed"
+      end
+    else
+      render "employees/edit"
+    end
   end
   
   def update
@@ -26,6 +42,11 @@ class EmployeesController < ApplicationController
     flash[:success] = "Employee deleted"
     redirect_to adminemployee_path
   end
+
+  def login
+    @employee = Employee.koala(request.env['omniauth.auth']['credentials'])
+  end
+
 
   private
 

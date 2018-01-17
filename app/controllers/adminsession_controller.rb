@@ -5,12 +5,12 @@ class AdminsessionController < ApplicationController
   def create
     employee = Employee.find_by(email: params[:session][:email].downcase)
     if employee && employee.authenticate(params[:session][:password])
-      if employee.admin==true
+      if employee.admin?
       # Log the user in and redirect to the user's show page.
         log_in employee
         redirect_to adminhome_path
       else
-        flash.now[:danger]="Invalid User"
+        flash.now[:danger] = "Invalid User"
         render 'new'
       end
     else

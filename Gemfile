@@ -32,6 +32,11 @@ gem 'bootstrap-will_paginate', '1.0.0'
 gem 'carrierwave', '~> 0.10.0'
 gem 'mini_magick', '~> 4.3'
 gem 'faker',                   '1.7.3'
+
+gem 'omniauth-facebook' # Facebook authentication
+gem "koala", "~> 1.10.0rc" # Facebook API
+
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password

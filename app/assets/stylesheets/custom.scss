@@ -22,9 +22,6 @@ $gray-medium-light: #eaeaea;
 }
 
 .img1{
-  // position: relative;
-  // left: 50%;
-  // transform: translate(-50%);
   display: block;
   max-width:230px;
   max-height:95px;
@@ -202,4 +199,8 @@ input {
 #session_remember_me {
   width: auto;
   margin-left: 0;
+}
+
+.alert-notice{
+  background-color:lightgreen
 }

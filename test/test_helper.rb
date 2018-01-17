@@ -1,5 +1,6 @@
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+OmniAuth.config.test_mode = true
 ENV['RAILS_ENV'] ||= 'test'
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
@@ -21,12 +22,12 @@ end
 
 class ActionDispatch::IntegrationTest
   
-    # Log in as a particular user.
-    def log_in_as(employee, password: 'password', remember_me: '1')
-      post login_path, params: { session: { email: employee.email,
-                                            password: password,
-                                            remember_me: remember_me } }
-    end
+  # Log in as a particular user.
+  def log_in_as(employee, password: 'password', remember_me: '1')
+    post login_path, params: { session: { email: employee.email,
+                                          password: password,
+                                          remember_me: remember_me } }
+  end
 
 end
   

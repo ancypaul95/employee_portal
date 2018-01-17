@@ -5,6 +5,15 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
   def setup
     @employee = employees(:example)
     @admin = employees(:admin)
+    OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+                                      :provider => 'facebook',
+                                      :uid => '123545',
+                                      :info => {
+                                          :name => 'Example',
+                                          :email => 'example@gmail.com',
+                                          :birthday => '01/10/1995'  
+                                        }                               
+    })
   end
   
   test "layout links" do
@@ -23,6 +32,10 @@ class SiteLayoutTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]',home_path
     assert_select 'a[href=?]', edit_employee_path(@employee)
     assert_select 'a[href=?]', logout_path
+    get edit_employee_path(@employee)
+    assert_select 'a[href=?]',auth_provider_path
+    get auth_provider_path
+    assert_redirected_to auth_facebook_callback_path
   end
 
   test "admin login link" do
