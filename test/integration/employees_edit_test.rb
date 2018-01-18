@@ -10,6 +10,10 @@ class EmployeesEditTest < ActionDispatch::IntegrationTest
                                               :name => ' Example',
                                               :email => 'example@gmail.com',
                                               :birthday => '01/10/1995'
+                                            },
+                                            :credentials => {
+                                              token: 'EAACQocJY0vUBAPTCE6GQGuQrJqmyvN78pQZBjkWs2HFjH6pnD3AkSq64N2M7ZACQaZADHeyzGhoQJNdqSuc47AydMdyfJmXrHo4ypvwCP3eYJcpf5AJzMKbI7zh0vKdOIHVXM3eU8LeWo5EQz776cDUHIVbZAgqfGfMsmLswFDMv0AR8WE84LfFLtl1W0sQZD',
+                                              secret: 'ea0245ec077f79112a5be084ce5690bd'
                                             }
     })
   end
@@ -40,9 +44,6 @@ class EmployeesEditTest < ActionDispatch::IntegrationTest
                                           password: 'password' } }
     get edit_employee_path(@employee)
     assert_template 'employees/edit'
-    assert_select 'a[href=?]',auth_provider_path
-    get auth_provider_path
-    assert_redirected_to auth_facebook_callback_path
     email = "foo@bar.com"
     designation="developer",
     dateofjoin="12/11/2017",
@@ -59,5 +60,39 @@ class EmployeesEditTest < ActionDispatch::IntegrationTest
     assert_not flash.empty?
     assert_redirected_to home_path
     @employee.reload 
+  end
+
+  test "update with facebook" do
+    stub_request(:get, /https:\/\/graph\.facebook.com\/v2\.0\/me\?(access_token=[A-Za-z0-9]*&)?fields=picture,name,email,birthday/).
+    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.12.2'}).
+    to_return(status: 200, body: {name: 'Ancy', birthday: '01/10/1995'}.to_json, headers: {})
+    get login_path
+    post login_path, params: { session: { email:    @employee.email,
+                                          password: 'password' } }
+    get edit_employee_path(@employee)
+    assert_template 'employees/edit'
+    assert_select 'a[href=?]',auth_provider_path
+    get auth_provider_path
+    assert_redirected_to auth_facebook_callback_path
+    follow_redirect!
+    assert_redirected_to home_path
+  end
+
+  test "invalid update with facebook" do
+    stub_request(:get, /https:\/\/graph\.facebook.com\/v2\.0\/me\?(access_token=[A-Za-z0-9]*&)?fields=picture,name,email,birthday/).
+    with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.12.2'}).
+    to_return(status: 200, body: {name: 'Ancy'}.to_json, headers: {})
+    get login_path
+    post login_path, params: { session: { email:    @employee.email,
+                                          password: 'password' } }
+    
+    get edit_employee_path(@employee)
+    assert_template 'employees/edit'
+    assert_select 'a[href=?]',auth_provider_path
+    get auth_provider_path
+    assert_redirected_to auth_facebook_callback_path
+    follow_redirect!
+    assert_redirected_to edit_employee_path(@employee)
+
   end
 end

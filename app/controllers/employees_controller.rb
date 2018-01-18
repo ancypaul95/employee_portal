@@ -16,12 +16,13 @@ class EmployeesController < ApplicationController
       if user['email'] || user['birthday'] 
         @employee.update_attributes(personalemail: user['email'],
                                     dateofbirth: date_converter(user['birthday']))
-        redirect_to edit_employee_path(@employee), notice:"successfully updated"
+        flash[:success] = "Successfully Updated the Profile with facebook details!"
+        redirect_to home_path
       else
         redirect_to edit_employee_path(@employee), notice:"Updation failed"
       end
     else
-      render "employees/edit"
+      render "edit"
     end
   end
   
