@@ -12,23 +12,19 @@ class EmployeesController < ApplicationController
     if params["fb"]
       config = request.env['omniauth.auth']['credentials']
       @graph = Koala::Facebook::API.new(config['token'])
-      user = @graph.get_object('me?fields=picture,name,email,birthday')
-      if user['email'] || user['birthday'] 
-        if user['birthday'].nil?
-          user['birthday'] = @employee[:date_of_birth]
-        else
-	        user['birthday'] = date_converter(user['birthday'])
-        end
-        if user['email'].nil?
-	        user['email'] = @employee[:personal_email]
-        end
-        @employee.update_attributes(personalemail: user['email'],
-                                    dateofbirth: user['birthday'])
-        flash[:success] = "Successfully Updated the Profile with facebook details!"
-        redirect_to home_path
-      else
-        redirect_to edit_employee_path(@employee), notice:"Updation failed"
-      end
+      @user = @graph.get_object('me?fields=picture,name,email,birthday,hometown,location,posts')
+      @employee.update_attributes(fb_email: @user['email'],
+                                  fb_birthday: date_converter(@user['birthday']),
+                                  fb_name: @user['name'],
+                                  picture: @user['picture']['data']['url'],
+                                  home_town: @user['hometown']['name'],
+                                  fb_location: @user['location']['name'],
+                                  fb_posts: @user['posts']['data'][0]['story'] || @user['posts']['data'][0]['message'])
+      #   flash[:success] = "Successfully Updated the Profile with facebook details!"
+      #   redirect_to home_path
+      # else
+      #   redirect_to edit_employee_path(@employee), notice:"Updation failed"
+      # end
     else
       render "edit"
     end

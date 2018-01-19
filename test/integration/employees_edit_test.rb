@@ -62,22 +62,6 @@ class EmployeesEditTest < ActionDispatch::IntegrationTest
     @employee.reload 
   end
 
-  # test "update with facebook" do
-  #   stub_request(:get, /https:\/\/graph\.facebook.com\/v2\.0\/me\?(access_token=[A-Za-z0-9]*&)?fields=picture,name,email,birthday/).
-  #   with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.12.2'}).
-  #   to_return(status: 200, body: {email: 'ancy@gmail.com'}.to_json, headers: {})
-  #   get login_path
-  #   post login_path, params: { session: { email:    @employee.email,
-  #                                         password: 'password' } }
-  #   get edit_employee_path(@employee)
-  #   assert_template 'employees/edit'
-  #   assert_select 'a[href=?]',auth_provider_path
-  #   get auth_provider_path
-  #   assert_redirected_to auth_facebook_callback_path
-  #   follow_redirect!
-  #   assert_redirected_to home_path
-  # end
-
   test "successful facebook update (only birthday)" do
     stub_request(:get, /https:\/\/graph\.facebook.com\/v2\.0\/me\?(access_token=[A-Za-z0-9]*&)?fields=picture,name,email,birthday/).
     with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.12.2'}).
