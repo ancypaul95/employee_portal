@@ -14,8 +14,16 @@ class EmployeesController < ApplicationController
       @graph = Koala::Facebook::API.new(config['token'])
       user = @graph.get_object('me?fields=picture,name,email,birthday')
       if user['email'] || user['birthday'] 
+        if user['birthday'].nil?
+          user['birthday'] = @employee[:date_of_birth]
+        else
+	        user['birthday'] = date_converter(user['birthday'])
+        end
+        if user['email'].nil?
+	        user['email'] = @employee[:personal_email]
+        end
         @employee.update_attributes(personalemail: user['email'],
-                                    dateofbirth: date_converter(user['birthday']))
+                                    dateofbirth: user['birthday'])
         flash[:success] = "Successfully Updated the Profile with facebook details!"
         redirect_to home_path
       else
