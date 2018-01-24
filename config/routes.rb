@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   get 'auth/facebook', as: "auth_provider"
   
-  get 'auth/facebook/callback', to: 'employees#edit', fb: true
+  get 'auth/facebook/callback', to: 'employees#edit', fb: true ,logout: false
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'sessions#new'  

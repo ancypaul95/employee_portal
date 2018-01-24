@@ -44,38 +44,40 @@
       <% end %>
     </div>
 
-    <%= link_to "Details from facebook", '/auth/facebook'%>
+    <% if @employee.fb_logged_in.nil? || @employee.fb_logged_in == false %>
+      <%= link_to "Details from facebook", '/auth/facebook'%>
+    <% else %>
+      <%= link_to "Logout from facebook",edit_employee_path(@employee,logout: true)%>
+    <% end %>
+    
+    <% if params['fb'] && @employee.fb_logged_in == true %>
+      <div class="col-md-6 float-right">
+        <%= form_for(@employee) do |f| %>
 
-    <% if params['fb'] %>
-    <div class="col-md-6 float-right">
-      <%= image_tag @user['picture']['data']['url'].to_s %>
-      <%= @user['name'] %><br/>
-      <%= @user['email'] %><br/>
-      <%= @user['birthday'] %><br/>
-      <%#= @user['hometown']['name'] %><br/>
-      <%= @user['location']['name'] %><br/>
-      <%= @user['posts']['data'][0]['message'] || @user['posts']['data'][0]['story'] %>
-    </div>
+          <%= image_tag @employee.picture, :class => 'img1'%>
+          
+          <%= f.label :name%>
+          <%= f.text_field :fb_name, class: 'form-control',readonly:"readonly" %>
+          
+          <%= f.label :email %>
+          <%= f.email_field :fb_email, class: 'form-control',readonly:"readonly" %>
+
+          <%= f.label :birthday %>
+          <%= f.date_field :fb_birthday, class: 'form-control',readonly:"readonly" %>
+
+          <%= f.label :hometown %>
+          <%= f.text_field :home_town, class: 'form-control',readonly:"readonly" %>
+
+          <%= f.label :location %>
+          <%= f.text_field :fb_location, class: 'form-control',readonly:"readonly"%>
+
+          <%= f.label :lastpost %>
+          <%= f.text_field :fb_posts, class: 'form-control',readonly:"readonly" %>
+
+        <% end %>
+      </div>
     <% end %>
 
   </div>
 <% end %>
 
-<script>
-window.fbAsyncInit = function () {
-  FB.init({
-    appId: '159024424735477',
-    xfbml: true,
-    version: 'v2.11'
-  });
-  FB.AppEvents.logPageView();
-};
-
-(function (d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) { return; }
-  js = d.createElement(s); js.id = id;
-  js.src = "https://connect.facebook.net/en_US/sdk.js";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script> 
