@@ -92,7 +92,7 @@ class EmployeesEditTest < ActionDispatch::IntegrationTest
     get auth_provider_path
     assert_redirected_to auth_facebook_callback_path
     follow_redirect!
-    assert_template 'employees/edit'
+    assert_redirected_to edit_employee_path(@employee)
   end
 
   test "valid details from facebook" do
@@ -112,6 +112,6 @@ class EmployeesEditTest < ActionDispatch::IntegrationTest
     get auth_provider_path
     assert_redirected_to auth_facebook_callback_path
     follow_redirect!
-    assert_template 'employees/edit'
+    assert_redirected_to edit_employee_path(@employee)
   end
 end
