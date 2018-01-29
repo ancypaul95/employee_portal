@@ -98,8 +98,8 @@ class EmployeesEditTest < ActionDispatch::IntegrationTest
   test "valid details from facebook" do
     stub_request(:get, /https:\/\/graph\.facebook.com\/v2\.0\/me\?(access_token=[A-Za-z0-9]*&)?fields=picture,name,email,birthday/).
     with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.12.2'}).
-    to_return(status: 200, body: {name: 'Example',email: 'example@gmail.com',birthday: '01/10/1995',hometown: 'Muvattupzha,India',
-                                  location: 'Muvattupuzha,India',
+    to_return(status: 200, body: {name: 'Example',email: 'example@gmail.com',birthday: '01/10/1995',hometown: {name: 'Muvattupzha,India'},
+                                  location: {name: 'Muvattupuzha,India'},
                                   posts: {data: [{story: 'aasdfghjklqwertyuizxcvbnm,sdfghjk'}]},
                                   picture: {data: {url: 'https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/24232151_868902676611680_8286081242403745265_n.jpg?oh=9bbb9ad2d8e23be229bda4d99a7ef185&oe=5AE5D586'}}}.to_json, headers: {})
     get login_path
