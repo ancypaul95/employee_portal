@@ -50,7 +50,7 @@
       <%= link_to "Logout from facebook",edit_employee_path(@employee,logout: true)%>
     <% end %>
     
-    <% if params['fb'] && @employee.fb_logged_in == true %>
+    <% if @employee.fb_logged_in == true %>
       <div class="col-md-6 float-right">
         <%= form_for(@employee) do |f| %>
 

@@ -4,6 +4,7 @@ class EmployeesController < ApplicationController
                                             :update,
                                             :home]
 
+
   def home
   end
   
@@ -24,6 +25,7 @@ class EmployeesController < ApplicationController
                                   fb_location: @user.fetch('location', {}).fetch( 'name', nil),
                                   fb_posts: @user.fetch('posts', {}).fetch('data', {}).fetch(0, {}).fetch('story', nil) || @user.fetch('posts', {}).fetch('data', {}).fetch(0, {}).fetch('message', nil)
                                 )
+    redirect_to edit_employee_path(@employee)
     end
     if params['logout']
       @employee.update_attributes(fb_logged_in: false)
